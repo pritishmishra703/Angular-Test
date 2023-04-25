@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</head>
+
+<body>
+    
+    <h1 class="success">Form Data Saved Successfully</h1>
+
+    <div class="form" ng-app="myApp" ng-controller="myController">
+        <form name="myForm" ng-submit="submitForm()">
+            <div>
+                <label>Name:</label>
+                <input type="text" name="name" ng-model="formData.name" required>
+                <span ng-show="myForm.name.$dirty && myForm.name.$invalid" style="color:red;">Required!</span>
+            </div>
+            <div>
+                <label>Address:</label>
+                <textarea name="address" ng-model="formData.address" required></textarea>
+                <span ng-show="myForm.address.$dirty && myForm.address.$invalid" style="color:red;">Required!</span>
+            </div>
+            <div>
+                <label>Contact No:</label>
+                <input type="text" name="contact" ng-model="formData.contact" required>
+                <span ng-show="myForm.contact.$dirty && myForm.contact.$invalid" style="color:red;">Required!</span>
+            </div>
+            <div>
+                <label>Email:</label>
+                <input type="email" name="email" ng-model="formData.email" required>
+                <span ng-show="myForm.email.$dirty && myForm.email.$invalid" style="color:red;">Required!</span>
+            </div>
+            <div>
+                <input type="checkbox" name="terms" ng-model="formData.terms" required>
+                <label for="terms">I agree to the terms and conditions.</label>
+                <span ng-show="myForm.terms.$dirty && myForm.terms.$invalid" style="color:red;">Required!</span>
+            </div>
+            <button class="button" type="submit" ng-disabled="myForm.$invalid">Submit</button>
+        </form>
+    </div>
+
+
+    <script>
+        angular.module('myApp', []).controller('myController', function ($scope) {
+                $scope.formData = {};
+
+                $scope.submitForm = function () {
+                    if ($scope.myForm.$valid) {
+                        document.querySelector('.form').style.display = 'none'
+                        document.querySelector('.success').style.display = 'block'
+                        console.log($scope.formData)
+                    }
+                };
+            });
+    </script>
+
+    <style>
+        .success{
+            display: none;
+        }
+
+        .form {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .form div{
+            padding-top: 20px;
+        }
+    </style>
+
+</body>
+
+</html>

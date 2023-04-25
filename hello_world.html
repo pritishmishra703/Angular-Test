@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <title>Hello, World</title>
+</head>
+
+<body>
+
+    <div ng-app="myApp" ng-controller="myCtrl"> 
+        <input type="button" value="{{clicked?'Hide':'Show'}}" ng-click="show()">
+        <h1 ng-if="clicked">Hello, World!</h1>
+    </div>
+
+    <script>
+        angular.module('myApp', []).controller('myCtrl', function ($scope) {
+            $scope.clicked = false
+            $scope.show = function (){
+                $scope.clicked = !$scope.clicked
+            }
+        }); 
+    </script>
+
+</body>
+
+</html>

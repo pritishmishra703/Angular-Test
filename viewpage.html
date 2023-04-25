@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h2>Angular JS Application</h2>
+
+    <div ng-app="myApp" ng-controller="myController">
+        <table>
+            <tr>
+                <td>Enter First Name</td>
+                <td><input type="text" ng-model="student.fname"></td>
+            </tr>
+            <tr>
+                <td>Enter Last Name</td>
+                <td><input type="text" ng-model="student.lname"></td>
+            </tr>
+            <tr>
+                <td>Full Name</td>
+                <td>{{student.fullName()}}</td>
+            </tr>
+            <tr>
+                <td>Marks</td>
+                <td>
+                    <table>
+                        <th>Subjects</th>
+                        <th>Marks</th>
+
+                        <tr ng-repeat="subject in student.subjects">
+                            <td>{{subject.name}}</td>
+                            <td>{{subject.marks}}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <style>
+        table,
+        th,
+        td{
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 10px;
+        }
+
+        table tr:nth-child(odd){
+            background-color: #f2f2f2;
+        }
+
+        table tr:nth-child(even){
+            background-color: #ffffff;
+        }
+    </style>
+
+
+    <script>
+        angular.module('myApp', []).controller("myController", function($scope) {
+            $scope.student = {
+                fname: 'John',
+                lname: 'Doe',
+                fullName: function(){
+                    var stud = $scope.student
+                    return stud.fname + ' ' + stud.lname
+                },
+                subjects: [
+                    {name:'Physics', marks:60},
+                    {name:'Chemistry', marks:70},
+                    {name:'Biology', marks:80},
+                ]
+            }
+        })
+    </script>
+
+</body>
+
+</html>

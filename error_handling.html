@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div ng-app="myApp" ng-controller="myController">
+
+        <input type="number" ng-model="num">
+        <button ng-click="calculate()">Calculate</button>
+        <p class="result">Result: {{result}}</p>
+        <p class="exceptions">Any Exception: {{errorMessage}}</p>
+
+    </div>
+
+
+    <script>
+        angular.module('myApp', []).controller('myController', function ($scope, $exceptionHandler) {
+            $scope.calculate = function () {
+                try {
+                    if ($scope.num < 0) {
+                        console.log('I am here')
+                        $scope.result = 'Not Possible'
+                        throw new Error('Number should be positive')
+                    }
+
+                    $scope.result = Math.sqrt($scope.num)
+                    $scope.errorMessage = 'No Exceptions'
+
+                }
+                catch (e) {
+                    $scope.errorMessage = e.message;
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

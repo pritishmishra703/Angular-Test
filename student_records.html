@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="form" ng-app="myApp" ng-controller="myController">
+        <input type="number" ng-model="studentData.id" hidden>
+        <div>
+            Name: <input type="text" ng-model="studentData.name">
+        </div>
+
+        <div>
+            Class: <input type="text" ng-model="studentData.class">
+        </div>
+
+        <div>
+            Roll No: <input type="number" ng-model="studentData.rollno">
+        </div>
+
+        <button id="sub-but" ng-click="submit()">Submit</button>
+        <button id="edit-but" ng-click="editted()" style="display: none;">Edit</button>
+
+        <table>
+            <tr>
+                <th>id</th>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Roll No</th>
+                <th></th>
+            </tr>
+
+            <tr ng-repeat="data in allData">
+                <td>{{data.id}}</td>
+                <td>{{data.name}}</td>
+                <td>{{data.class}}</td>
+                <td>{{data.rollno}}</td>
+                <td>
+                    <span ng-click="edit(data.id)">edit</span>
+                    <span ng-click="delete(data.id)">delete</span>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <script>
+        angular.module('myApp', []).controller('myController', function ($scope) {
+            $scope.studentData = {}
+            $scope.allData = []
+
+            $scope.submit = function () {
+                $scope.studentData.id = $scope.allData.length
+                $scope.allData.push($scope.studentData)
+                $scope.studentData = {}
+                console.log($scope.allData)
+            }
+
+            $scope.delete = function (idToDelete) {
+                $scope.allData = $scope.allData.filter(item => item.id !== idToDelete);
+            }
+
+            $scope.edit = function (idToEdit) {
+                $scope.studentData = $scope.allData.find(item => item.id === idToEdit);
+                document.getElementById('sub-but').style.display = 'none'
+                document.getElementById('edit-but').style.display = 'block'
+            }
+
+            $scope.editted = function () {
+                $scope.studentData = {}
+                document.getElementById('sub-but').style.display = 'block'
+                document.getElementById('edit-but').style.display = 'none'
+            }
+        })
+    </script>
+
+    <style>
+        .form div {
+            padding-top: 10px;
+        }
+
+        .form button {
+            margin-top: 10px;
+        }
+
+        table {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        table,
+        th,
+        td {
+            border: solid 1px grey;
+            border-collapse: collapse;
+            padding: 10px;
+        }
+
+        .form span {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+    </style>
+
+</body>
+
+</html>
